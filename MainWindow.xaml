@@ -1,0 +1,153 @@
+﻿<Window x:Class="BinLine.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BinLine"
+        xmlns:page="clr-namespace:BinLine.Pages"
+        mc:Ignorable="d"
+        Title="BinLine" Height="450" Width="800">
+    <Window.DataContext>
+        <local:MainViewModel x:Name="viewModel"></local:MainViewModel>
+    </Window.DataContext>
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" Background="LightBlue" Height=" 20">
+                <MenuItem Header="_File">
+                    <MenuItem Header="_New" />
+                    <MenuItem Header="_Open" />
+                    <MenuItem Header="_Open Next" />
+                    <MenuItem Header="_Open Recent" />
+                    <MenuItem Header="_Close" />
+                    <MenuItem Header="_Save" />
+                    <MenuItem Header="_Save As" />
+                </MenuItem>
+                <MenuItem Header="_Edit">
+                    <MenuItem Header="_Undo" />
+                    <MenuItem Header="_Cut"  />
+                    <MenuItem Header="_Copy" />
+                    <MenuItem Header="_Paste" />
+                    <MenuItem Header="_Clear" />
+                </MenuItem>
+                <MenuItem Header="_Lines">
+                    <MenuItem Header="Line1" Click="Line1_Click"/>
+                    <MenuItem Header="RGB32To24" />
+                    <MenuItem Header="_Adjust" />
+                    <MenuItem Header="_Show Info..."  />
+                    <MenuItem Header="_Rename"  />
+                    <MenuItem Header="_Crop"  />
+                    <MenuItem Header="_Transform"  />
+                    <MenuItem Header="_Zoom"  />
+                </MenuItem>
+                <MenuItem Header="_Process">
+                    <MenuItem Header="RandomNosie" Click="RandomNosie_Click"/>
+                    <MenuItem Header="_arPLS" Click="arPLS_Click"/>
+                    <MenuItem Header="_Poly" Click="Poly_Click"/>
+                    <MenuItem Header="_Math" />
+                    <MenuItem Header="_Realdata" Click="Realdata_Click"/>
+                </MenuItem>
+                <MenuItem Header="_Analyze">
+                    <MenuItem Header="_Summarize"    />
+                    <MenuItem Header="_Distribution" />
+                    <MenuItem Header="_Lable" />
+                    <MenuItem Header="_Calibrate" />
+                    <MenuItem Header="_Histogram" />
+                    <MenuItem Header="_Plot Profile" />
+                </MenuItem>
+                <MenuItem Header="_Plugins">
+                    <MenuItem Header="_Macros"  />
+                    <MenuItem Header="_Install" />
+                </MenuItem>
+                <MenuItem Header="_Windows">
+                    <MenuItem Header="_Show All"  />
+                    <MenuItem Header="_Main Window" />
+                </MenuItem>
+                <MenuItem Header="_Help">
+                    <MenuItem Header="_Update"  />
+                    <MenuItem Header="_About" />
+                </MenuItem>
+            </Menu>
+            <ToolBarTray DockPanel.Dock="Top" Background="LightGoldenrodYellow" Height="25" VerticalAlignment="Center">
+                <ToolBar  Background="LightGoldenrodYellow">
+                    <Button Click="OpenFile_Click" Content="Open" />
+                    <Button Click="SaveImage_Click" Content="Save" />
+                    <Button Click="SaveAsImage_Click" Content="SaveAs" />
+                    <Button>Cut</Button>
+                    <Button>Copy</Button>
+                    <Button>Paste</Button>
+                    <Button>Exit</Button>
+                </ToolBar>
+                <ToolBar Header="Simulate:" Background="Gold" >
+                    <TextBox x:Name="SimalateData" Width="200" />
+                    <Button Width="60" Background="Gold" Click="Dada_Click" >Confirm!</Button>
+                    <TextBlock Width="100" Background="GreenYellow" Text="arPLS Parameter:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <ComboBox  x:Name="lambda" Width="45" ItemsSource="{Binding Lambda}" SelectedValue="{Binding LambdaSelected}" />
+                </ToolBar>
+            </ToolBarTray>
+            
+            <StatusBar DockPanel.Dock="Bottom">
+                <StatusBar.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1.8*" />
+                                <ColumnDefinition Width="auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="6*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="1.3*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                        </Grid>
+                    </ItemsPanelTemplate>
+                </StatusBar.ItemsPanel>
+                <StatusBarItem Background="LightBlue">
+                    <TextBlock Text="   Ready" />
+                </StatusBarItem>
+                <Separator Grid.Column="1" />
+                <StatusBarItem Background="LightBlue" Grid.Column="2">
+                    <TextBlock Text="FilePath: " />
+                </StatusBarItem>
+                <Separator Grid.Column="3" />
+                <StatusBarItem Grid.Column="4" Background="LightBlue">
+                    <TextBlock Text="{Binding Filename }"/>
+                </StatusBarItem>
+                <Separator Grid.Column="5" />
+                <StatusBarItem Background="LightBlue" Grid.Column="6">
+                    <TextBlock Text="ProcessTime: " />
+                </StatusBarItem>
+                <Separator Grid.Column="7" />
+                <StatusBarItem Grid.Column="8" Background="LightBlue">
+                    <TextBlock Text="{Binding Processtime }"/>
+                </StatusBarItem>
+                <Separator Grid.Column="9" />
+                <StatusBarItem Grid.Column="10" Background="LightBlue">
+                    <TextBlock Text="{Binding RMSE }"/>
+                </StatusBarItem>
+            </StatusBar>
+            <Grid >
+                <Grid.ColumnDefinitions >
+                    
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions >
+                    <RowDefinition Height ="*"/>
+                </Grid.RowDefinitions>
+                <Border  BorderThickness="5"  Margin="0,0,3,0" Grid.Column="0" Grid.Row="0"  BorderBrush="LightGray">
+                    <TabControl >
+                        <TabItem Header="Filesource" Width="80">
+                            <Frame Source="/BinLine;component/Pages/Page2.xaml"/>
+                        </TabItem>
+                        <TabItem Header="Line1" Width="80">
+                            <page:Page1 x:Name="page1"/>
+                        </TabItem>
+                    </TabControl>
+                </Border>
+                
+            </Grid >
+        </DockPanel>
+    </Grid>
+</Window>
